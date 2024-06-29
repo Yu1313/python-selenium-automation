@@ -12,22 +12,17 @@ service = Service(driver_path)  # starts chrome
 driver = webdriver.Chrome(service=service)  # starts chrome
 driver.maximize_window()  # maximizes Chrome browser screen
 
-# open the url
-driver.get('https://www.google.com/')
 
-# populate search field
-search = driver.find_element(By.NAME, 'q')
-search.clear()
-search.send_keys('table')
-
-# wait for 4 sec
-sleep(4)
-
-# click search button
-driver.find_element(By.NAME, 'btnK').click()
-
-# verify search results
-assert 'table' in driver.current_url.lower(), f"Expected query not in {driver.current_url.lower()}"
-print('Test Passed')
-
-driver.quit()
+# Part 2: Create a test case for the SignIn page using python & selenium script.
+# Open https://www.target.com/
+driver.get('https://www.target.com/')
+# Click SignIn button
+driver.find_element(By.XPATH, "//a[@data-test='@web/AccountLink']").click()
+sleep(2)
+# 3. Click SignIn from side navigation
+driver.find_element(By.XPATH, "//a[@data-test='accountNav-signIn']").click()
+sleep(2)
+# 4. Verify SignIn page opened:
+expected_text = 'Sign into your Target account'
+actual_text = driver.find_element(By.XPATH, "//*[span='Sign into your Target account']").text
+print(actual_text)
