@@ -44,6 +44,6 @@ driver.find_element(By.XPATH, "//div[@id='nav-main']//a[contains(text(),'Best']"
 
 # contains ** case sensitive
 driver.find_element(By.XPATH, "//h2[contains(text(), 'under $30')]")
-
+driver.find_element(By.XPATH, "//a[contains(@href, 'condition_of_use')]")
 
 
