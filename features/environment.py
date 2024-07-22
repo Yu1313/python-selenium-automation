@@ -1,9 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC  #alias to make this short in code
+from time import sleep
 
 
-def browser_init(context):
+def browser_init(context): # function used to start browser
     """
     :param context: Behave context
     """
@@ -13,9 +17,10 @@ def browser_init(context):
 
     context.driver.maximize_window()
     context.driver.implicitly_wait(4)
+    context.driver.wait = WebDriverWait(context.driver, 15)
 
 
-def before_scenario(context, scenario):
+def before_scenario(context, scenario):  # called hooks
     print('\nStarted scenario: ', scenario.name)
     browser_init(context)
 

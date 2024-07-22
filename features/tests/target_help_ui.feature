@@ -10,5 +10,5 @@ Feature: help page
     And Manage my, cell elements display
     And Div block 2 elements display
     And Browse all Help pages, text displays
-    Then Verify help page ui link displays
+    Then Verify Browse all Help pages text displays
 

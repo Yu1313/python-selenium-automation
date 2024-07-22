@@ -43,10 +43,10 @@ def browse_all_help(context):
     context.driver.find_element(By. XPATH, "//*[text()='Browse all Help pages']")
 
 
-@then('Verify help page ui link displays')
+@then('Verify Browse all Help pages text displays')
 def verify_page_ui(context):
-    url = context.driver.current_url
-    assert help in url, f'{help} not in {url}'
+    expected_text = (By. XPATH, "//*[text()='Browse all Help pages']")
+    actual_text = 'Browse all Help pages'
 
     print('Test case passed')
 

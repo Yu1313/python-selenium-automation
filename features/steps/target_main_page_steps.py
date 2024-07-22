@@ -1,7 +1,11 @@
 from selenium.webdriver.common.by import By
 from behave import given, when, then
 from time import sleep
-
+from selenium.webdriver.support import expected_conditions as EC  #alias to make this short in code
+SEARCH_PRODUCT = (By.XPATH, "//button[@data-test='@web/Search/SearchButton']")
+SIGNIN_MAIN_PAGE = (By.XPATH, "//a[@data-test='@web/AccountLink']")
+SIGNIN_NAV = (By.XPATH, "//a[@data-test='accountNav-signIn']")
+CART_MAIN = (By.CSS_SELECTOR, "a[data-test='@web/CartLink']")
 
 @given('Open target main page')
 def open_target(context):
@@ -18,25 +22,28 @@ def search_product(context, product):
     sleep(2)
 
 
+
 # Click SignIn button
 @when("Click Sign In")
 def sign_in(context):
     context.driver.find_element(By.XPATH, "//a[@data-test='@web/AccountLink']").click()
     sleep(5)
+    #context.driver.wait.until(EC.element_to_be_clickable(SIGNIN_NAV)).click()
 
 
 # 3. Click SignIn from side navigation
 @when("From right side navigation menu, click Sign In")
 def right_nav_signin(context):
-    context.driver.find_element(By.XPATH, "//a[@data-test='accountNav-signIn']").click()
-    sleep(5)
+    context.driver.find_element(*SIGNIN_NAV).click()
+    #sleep(5)
+    #context.driver.wait.until(EC.visibility_of_element_located(CART_MAIN))
 
 
 # Click on Cart icon
 @when("Click on Cart icon")
 def click_cart(context):
-    sleep(3)
-    context.driver.find_element(By.CSS_SELECTOR, "[data-test='@web/CartLink']").click()
+    #sleep(5)
+    context.driver.wait.until(EC.element_to_be_clickable(CART_MAIN)).click()
 
 
 @then('Verify header is shown')
