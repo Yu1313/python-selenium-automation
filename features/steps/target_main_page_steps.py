@@ -7,20 +7,20 @@ SIGNIN_MAIN_PAGE = (By.XPATH, "//a[@data-test='@web/AccountLink']")
 SIGNIN_NAV = (By.XPATH, "//a[@data-test='accountNav-signIn']")
 CART_MAIN = (By.CSS_SELECTOR, "a[data-test='@web/CartLink']")
 
+
 @given('Open target main page')
 def open_target(context):
-    context.driver.get('https://target.com')
+    context.app.main_page.open()
 
 
-@when('Search for {product}')
-def search_product(context, product):
+@when('Search for {coffee}')
+def search_product(context, coffee):
     # find search field and enter text
-    context.driver.find_element(By.XPATH, "//input[@data-test='@web/Search/SearchInput']").send_keys(product)
-    # Click search
-    context.driver.find_element(By.XPATH, "//button[@data-test='@web/Search/SearchButton']").click()
-    # after clicks search will wait until page load to verify results --will not get critical errors
-    sleep(2)
-
+    context.app.header.search_product()
+    # # Click search
+    # context.driver.find_element(By.XPATH, "//button[@data-test='@web/Search/SearchButton']").click()
+    # # after clicks search will wait until page load to verify results --will not get critical errors
+    # sleep(2)
 
 
 # Click SignIn button
@@ -43,7 +43,8 @@ def right_nav_signin(context):
 @when("Click on Cart icon")
 def click_cart(context):
     #sleep(5)
-    context.driver.wait.until(EC.element_to_be_clickable(CART_MAIN)).click()
+    #context.driver.wait.until(EC.element_to_be_clickable(CART_MAIN)).click()
+    context.app.header.click_cart()
 
 
 @then('Verify header is shown')

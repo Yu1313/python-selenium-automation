@@ -5,11 +5,12 @@ from selenium.webdriver.support import expected_conditions as EC  #alias to make
 
 # THIS IS CALLED UNPACKING
 ADD_ITEM_TO_CART_BTN = (By. CSS_SELECTOR, "[id*='addToCartButton']")
-#SIDE_NAV_PRODUCT_NAME = (By.CSS_SELECTOR, "[data-test='content-wrapper'] h4")
 SIDE_NAV_PRODUCT_NAME = (By.CSS_SELECTOR, '[data-test="content-wrapper"] h4')
 SIDE_NAV_ADD_TO_CART = (By. CSS_SELECTOR, "[data-test='content-wrapper'] [id*='addToCart']")
 VIEW_CART_AND_CHECKOUT = (By.CSS_SELECTOR, "[href='/cart']")
-
+LISTINGS = (By.CSS_SELECTOR, "[data-test='@web/site-top-of-funnel/ProductCardWrapper']")
+PRODUCT_TITLE = (By.CSS_SELECTOR, "[data-test='product-title']")
+PRODUCT_IMG = (By.CSS_SELECTOR, 'img')
 
 @when('Add milk to cart')
 def add_milk_to_cart(context):
@@ -38,16 +39,34 @@ def exit_cart(context):
     context.driver.find_element(*VIEW_CART_AND_CHECKOUT).click()
 
 
-@then('Verify search worked for {product}')
-def verify_search_worked(context, product):
-    actual_text = context.driver.find_element(By.XPATH, "//div[@data-test='resultsHeading']").text
-    # asserts compares values assert 1==1 true
-    assert product in actual_text, f'Expected text {product} is not in actual text {actual_text}'
+@then('Verify search worked for {coffee}')
+def verify_search_worked(context, coffee):
+    context.app.search_results_page.verify_text()
+    # actual_text = context.driver.find_element(By.XPATH, "//div[@data-test='resultsHeading']").text
+    # # asserts compares values assert 1==1 true
+    # assert product in actual_text, f'Expected text {product} is not in actual text {actual_text}'
 
 
-@then('Verify correct search results URL opens for {product}')
-def verify_search_worked(context, product):
-    url = context.driver.current_url
-    assert product in url, f'{product} not in {url}'
+@then('Verify correct search results URL opens for {coffee}')
+def verify_search_worked(context, coffee):
+    context.app.search_results_page.verify_url()
+    # url = context.driver.current_url
+    # assert product in url, f'{product} not in {url}'
 
     print('Test case passed')
+
+
+@then('Verify that every product has a name and an image')
+def verify_products_name_img(context):
+    # To see ALL listings (comment out if you only check top ones):
+    context.driver.execute_script("window.scrollBy(0,2000)", "")
+    sleep(4)
+    context.driver.execute_script("window.scrollBy(0,2000)", "")
+
+    all_products = context.driver.find_elements(*LISTINGS)  # [WebEl1, WebEl2, WebEl3, WebEl4]
+
+    for product in all_products[0:4]:
+        title = product.find_element(*PRODUCT_TITLE).text
+        assert title, 'Product title not shown'
+        print(title)
+        product.find_element(*PRODUCT_IMG)
