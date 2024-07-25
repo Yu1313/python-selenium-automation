@@ -8,9 +8,9 @@ Feature: Target main page search tests
 ###
   Scenario: User can search for a product on target
     Given Open target main page
-    When  Search for coffee
-    Then Verify search worked for coffee
-    Then Verify correct search results URL opens for coffee
+    When  Search for milk
+    Then Verify search worked for milk
+    Then Verify correct search results URL opens for milk
 
 ##  Scenario Outline: User can search for a product on target
 ##    Given Open target main page

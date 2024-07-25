@@ -3,11 +3,14 @@ from pages.base_page import Page
 
 
 class CartPage(Page):
-    CART_EMPTY_MSG = By.CSS_SELECTOR, "[data-test='boxEmptyMsg']"
+    CART_EMPTY_MSG = (By.CSS_SELECTOR, "[data-test='boxEmptyMsg']")
+    CART_ITEM_TITLE = (By.CSS_SELECTOR, "[data-test='cartItem-title']")
 
     def verify_cart_empty(self):
-        expected_text = 'Your cart is empty'
-        #actual_text = self.driver.find_element(*self.CART_EMPTY_MSG).text
-        actual_text = self.find_element(*self.CART_EMPTY_MSG).text
-        #self.verify_text('Your cart is empty', *self.CART_EMPTY_MSG)
-        assert actual_text in expected_text, f'Expected {expected_text} but got {actual_text}'
+        self.wait_for_element_appear(*self.CART_EMPTY_MSG)
+        #expected_text = 'Your cart is empty'
+        self.verify_text('Your cart is empty', *CartPage.CART_EMPTY_MSG)
+
+    def verify_cart_item(self, product):
+        self.wait_for_element_appear(*self.CART_ITEM_TITLE)
+        self.verify_partial_text(product, *self.CART_ITEM_TITLE)
