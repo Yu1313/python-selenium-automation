@@ -9,6 +9,38 @@ INPUT_PASSWORD = (By.CSS_SELECTOR, "input#password")
 SIGNIN_WITH_PASSWORD_BTN = (By. CSS_SELECTOR, "button#login")
 
 
+@given('Open sign in page')
+def open_signin_page(context):
+    context.app.signin_page.open_target_signin()
+    sleep(10)
+
+
+@when('Store original window')
+def store_original_window(context):
+    context.original_window = context.app.signin_page.get_current_window()
+
+
+@when('Click on Target terms and conditions link')
+def click_tc_link(context):
+    context.app.signin_page.click_tc_link()
+
+
+@when('Switch to the newly opened window')
+def switch_window(context):
+    context.app.signin_page.switch_to_new_window()
+
+
+@then('Verify Terms and Conditions page is opened')
+def verify_tc_opened(context):
+    context.app.terms_conditions_page.verify_tc_url()
+
+
+@then('User can close new window and switch back to original')
+def close_return_to_original_window(context):
+    context.app.terms_conditions_page.close()
+    context.app.terms_conditions_page.switch_to_window_by_id(context.original_window)
+
+
 @when("input email and password on SignIn page")
 def input_email_and_password(context):
     context.app.signin_page.input_email_and_password(INPUT_EMAIL, INPUT_PASSWORD)

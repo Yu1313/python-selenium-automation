@@ -9,6 +9,13 @@ class SigninPage(Page):
     INPUT_EMAIL = (By.CSS_SELECTOR, "input#username")
     INPUT_PASSWORD = (By.CSS_SELECTOR, "input#password")
     SIGNIN_WITH_PASSWORD_BTN = (By.CSS_SELECTOR, "button#login")
+    TC_LINK = (By.XPATH, "//a[contains(text(),'terms')]")
+
+    def open_target_signin(self):
+        self.open_url('https://www.target.com/login?client_id=ecom-web-1.0.0&ui_namespace=ui-default&back_button_action=browser&keep_me_signed_in=true&kmsi_default=false&actions=create_session_signin')
+
+    def click_tc_link(self):
+        self.click(*self.TC_LINK)
 
     def verify_sign_in_form(self):
         self.wait_for_element_appear(*self.ACTUAL_SIGNIN_TEXT)
