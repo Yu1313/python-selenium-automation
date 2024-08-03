@@ -7,6 +7,8 @@ from pages.signin_page import SigninPage
 from pages.target_app_page import TargetAppPage
 from pages.privacy_policy_page import PrivacyPage
 from pages.terms_conditions_page import TermsConditionsPage
+from pages.help_page import HelpPage
+
 
 class Application:
     def __init__(self, driver):
@@ -19,5 +21,5 @@ class Application:
         self.target_app_page = TargetAppPage(driver)
         self.privacy_policy_page = PrivacyPage(driver)
         self.terms_conditions_page = TermsConditionsPage(driver)
-
+        self.help_page = HelpPage(driver)
 

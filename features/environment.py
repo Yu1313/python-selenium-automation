@@ -24,7 +24,7 @@ def browser_init(context, scenario_name): # function used to start browser
     #           driver_path = GeckoDriverManager().install()
     #           service = Service(driver_path)
     #           context.driver = webdriver.Firefox(service=service)
-    driver_path = ChromeDriverManager().install()
+    driver_path = './chromedriver.exe' # for windows users
     service = Service(driver_path)
     context.driver = webdriver.Chrome(service=service)  # define browser used
 

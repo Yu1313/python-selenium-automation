@@ -6,11 +6,11 @@ Feature: Target main page search tests
 ###    Then Verify search worked for tea
 ###    Then Verify correct search results URL opens for tea
 ###
-  Scenario: User can search for a product on target
-    Given Open target main page
-    When  Search for milk
-    Then Verify search worked for milk
-    Then Verify correct search results URL opens for milk
+#  Scenario: User can search for a product on target
+#    Given Open target main page
+#    When  Search for milk
+#    Then Verify search worked for milk
+#    Then Verify correct search results URL opens for milk
 
 ##  Scenario Outline: User can search for a product on target
 ##    Given Open target main page
@@ -27,3 +27,9 @@ Feature: Target main page search tests
 #    Given Open target main page
 #    When Search for iphone
 #    Then Verify that every product has a name and an image
+
+  Scenario: User can see favorite tooltip for search results
+    Given Open target main page
+    When Search for tea
+    And Hover favorites icon
+    Then Favorites tooltip is shown

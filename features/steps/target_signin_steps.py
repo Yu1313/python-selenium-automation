@@ -54,6 +54,16 @@ def click_sign_in_with_password(context):
     # context.driver.wait.until(EC.element_to_be_clickable(SIGNIN_WITH_PASSWORD_BTN)).click()
 
 
+@when("Enter incorrect email and password combination")
+def input_incorrect_email_and_password(context):
+    context.app.signin_page.input_incorrect_email_and_password(INPUT_EMAIL, INPUT_PASSWORD)
+
+
+@then("Verify that 'We can't find your account.' message is shown")
+def verify_signin_error_message(context):
+    context.app.signin_page.verify_signin_error_message()
+
+
 @then("Verify user is logged in")
 def verify_user_is_logged_in(context):
     context.app.signin_page.verify_logged_in()
