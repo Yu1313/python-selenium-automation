@@ -6,7 +6,7 @@ Feature: Tests for product page
 #    Given Open target product A-86692941 page
 #    Then Verify user can click through colors
 #    # Enter steps here
-
+  @smoke
   Scenario: User can select sizes
     Given Open target product A-91511634 page
     Then  Verify user can click through sizes

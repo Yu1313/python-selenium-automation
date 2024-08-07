@@ -1,6 +1,7 @@
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from support.logger import logger
 
 
 class Page:
@@ -9,18 +10,22 @@ class Page:
         self.wait = WebDriverWait(driver, 15)
 
     def open_url(self, url):
+        logger.info(f'Opening {url}...')
         self.driver.get(url)
 
     def find_element(self, *locator):
+        logger.info(f'Searching for element {locator}...')
         return self.driver.find_element(*locator)
 
     def find_elements(self, *locator):
         return self.driver.find_elements(*locator)
 
     def click(self, *locator):
+        logger.info(f'Clicking element {locator}...')
         self.driver.find_element(*locator).click()
 
     def input_text(self, text, *locator):
+        logger.info(f'Inputting text {text} for element {locator}...')
         self.driver.find_element(*locator).send_keys(text)
 
     def hover_element(self, *locator):

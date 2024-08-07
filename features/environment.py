@@ -8,6 +8,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC  #alias to make this short in code
 from time import sleep
 from app.application import Application
+from support.logger import logger
+# Command to run tests with Allure & Behave:
+# behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/target_search.feature
 
 
 def browser_init(context, scenario_name): # function used to start browser
@@ -76,15 +79,18 @@ def browser_init(context, scenario_name): # function used to start browser
 
 def before_scenario(context, scenario):  # called hooks
     print('\nStarted scenario: ', scenario.name)
+    logger.info(f'\nStarted scenario: {scenario.name}')
     browser_init(context, scenario.name)
 
 
 def before_step(context, step):
+    logger.info(f'Started step: {step}')
     print('\nStarted step: ', step)
 
 
 def after_step(context, step):
     if step.status == 'failed':
+        logger.error(f'Step failed: {step}')
         print('\nStep failed: ', step)
 
 
